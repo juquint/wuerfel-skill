@@ -17,11 +17,11 @@ public class CancelStopIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String text = "Auf Wiedersehen!";
+        String speechText = "Auf Wiedersehen!";
 
         return input.getResponseBuilder()
-                .withSpeech(text)
-                .withSimpleCard("Wurf", text)
+                .withSpeech(speechText)
+                .withSimpleCard("Wurf", speechText)
                 .build();
     }
 }

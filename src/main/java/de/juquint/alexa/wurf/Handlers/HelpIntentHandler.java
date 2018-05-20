@@ -16,12 +16,12 @@ public class HelpIntentHandler implements RequestHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {
-        String text = "Du kannst mit mir Würfeln, indem du sagst würfel!";
+        String speechText = "Du kannst mit mir Würfeln, indem du sagst würfel!";
 
         return input.getResponseBuilder()
-                .withSpeech(text)
-                .withSimpleCard("Wurf", text)
-                .withReprompt(text)
+                .withSpeech(speechText)
+                .withSimpleCard("Wurf", speechText)
+                .withReprompt(speechText)
                 .build();
     }
 }

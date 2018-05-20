@@ -8,11 +8,12 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-import static de.juquint.alexa.wurf.Handlers.WurfIntentHandler.ZAHL_KEY;
-import static de.juquint.alexa.wurf.Handlers.WurfIntentHandler.ZAHL_SLOT;
 import static com.amazon.ask.request.Predicates.intentName;
 
 public class ZahlIntentHandler implements RequestHandler {
+    public static final String NUMBER_KEY = "ZAHL";
+    public static final String NUMBER_SLOT = "Zahl";
+
     @Override
     public boolean canHandle(HandlerInput input) {
         return input.matches(intentName("ZahlIntent"));
@@ -24,14 +25,14 @@ public class ZahlIntentHandler implements RequestHandler {
         IntentRequest intentRequest = (IntentRequest) request;
         Map<String, Slot> slots = intentRequest.getIntent().getSlots();
 
-        Slot zahlSlot = slots.get(ZAHL_SLOT);
+        Slot numberSlot = slots.get(NUMBER_SLOT);
 
         String speechText;
         try{
-            int zahl = Integer.parseInt(zahlSlot.getValue());
-            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(ZAHL_KEY, zahl));
+            int size = Integer.parseInt(numberSlot.getValue());
+            input.getAttributesManager().setSessionAttributes(Collections.singletonMap(NUMBER_KEY, size));
 
-            speechText = String.format("Du hast die Würfelgröße %s ausgewählt.", zahl);
+            speechText = String.format("Du hast die Würfelgröße %s ausgewählt.", size);
         }catch (NumberFormatException e){
             speechText = "Du kannst als Würfelgröße nur eine Zahl wählen!";
         }

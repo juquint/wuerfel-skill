@@ -9,10 +9,9 @@ import java.util.Random;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class WurfIntentHandler implements RequestHandler {
-    public static final String ZAHL_KEY = "ZAHL";
-    public static final String ZAHL_SLOT = "Zahl";
+import static de.juquint.alexa.wurf.Handlers.ZahlIntentHandler.NUMBER_KEY;
 
+public class WurfIntentHandler implements RequestHandler {
     @Override
     public boolean canHandle(HandlerInput input) {
         return input.matches(intentName("WurfIntent"));
@@ -21,12 +20,12 @@ public class WurfIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
         String speechText;
-        Integer zahl = (Integer) input.getAttributesManager().getSessionAttributes().get(ZAHL_KEY);
+        Integer size = (Integer) input.getAttributesManager().getSessionAttributes().get(NUMBER_KEY);
 
-        if (zahl != null) {
+        if (size != null) {
             Random ran = new Random();
-            int wurf = ran.nextInt(zahl)+1;
-            speechText = String.format("Ich habe eine %s gewürfelt.", wurf);
+            int number = ran.nextInt(size)+1;
+            speechText = String.format("Ich habe eine %s gewürfelt.", number);
         } else {
             speechText = "Du hast noch keine Größe für deinen Würfel festgelegt. " +
                          "Du kannst dies tun, indem du zum Beispiel sagst, setze 6!";
